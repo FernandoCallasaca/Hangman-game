@@ -2,11 +2,13 @@
 
 > Created by Fernando Callasaca
 
-## Reglas del juego:
+## Game rules:
 
-Elegir una palabra y si adivina aparecerá completado.
+Choose a word and if you guess it will appear completed.
 
-En caso no sea la palabra entonces empezará a dibujarse el hombre hasta que sea colgado completamente.
+In case it is not the word then the man will start drawing himself until he is completely hung.
+
+
 
 > When you win the game
 
