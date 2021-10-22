@@ -21,7 +21,7 @@ Github         :            https://github.com/fernandocallasaca
    """
    print(creator)
 
-def hagman_structure():
+def hangman_structure(errors = 0):
    hangman = """
 |                                        |
 |                                        |
@@ -164,17 +164,11 @@ def hagman_structure():
 
    part_scene = []
 
-   part_scene += first_line
-   part_scene += second_line
-   part_scene += third_line
-   part_scene += four_line
-   part_scene += fifth_line
-   part_scene += sixth_line
-   part_scene += seventh_line
-   part_scene += eight_line
-   part_scene += nineth_line
-   part_scene += tenth_line
-   part_scene += eleventh_line
+   list_parts_man = [first_line, second_line, third_line, four_line, fifth_line, sixth_line,
+   seventh_line, eight_line, nineth_line, tenth_line, eleventh_line]
+
+   for i in range(errors):
+      part_scene += list_parts_man[i]
 
    lines = [list(line) for line in hangman.splitlines()]
 
@@ -201,10 +195,10 @@ def check_word(correct_word, current_word, letter):
             string += current_word[i].lower() + ' '
          else:
             string += '_ '
-   print('Word:', string)
+   print('\nWord:', string)
    return '_' in current_word
 
-def generate_scene(correct_word, current_word, letter):
+def generate_scene(correct_word, current_word, letter, errors = 0):
    # Clean the window
    os.system('cls')
    # Game Name
@@ -212,7 +206,7 @@ def generate_scene(correct_word, current_word, letter):
    # Creator name
    creator_name()
    # Hagman Structure for each game defeat
-   hagman_structure()
+   hangman_structure(errors)
    # Check word and return if is complete or not
    return check_word(correct_word, current_word, letter)
 
@@ -224,12 +218,19 @@ def run():
 
    alive = True
    incomplete = True
+   errors = 0
    
    while (alive == True and incomplete):
       # we need a letter
-      letter = str(input('Type a letter: '))
+      letter = str(input('\nType a letter: '))
       # incomplete = check_word(correct_word, current_word, letter)
-      incomplete = generate_scene(correct_word, current_word, letter)
+      incomplete = generate_scene(correct_word, current_word, letter, errors)
+      if(incomplete):
+         if(errors == 11):
+            print('\nYou lost the game... The correct word was:', correct_word)
+            break
+         else:
+            errors += 1
 
 if __name__ == '__main__':
    run()
