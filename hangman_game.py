@@ -185,9 +185,11 @@ def list_words():
    return my_list_words
 
 def check_word(correct_word, current_word, letter):
+   correct_letter = False
    string = ''
    for i, let in enumerate(correct_word):
       if let.lower() == letter.lower():
+         correct_letter = True
          current_word[i] = letter
          string += letter.lower() + ' '
       else:
@@ -196,7 +198,7 @@ def check_word(correct_word, current_word, letter):
          else:
             string += '_ '
    print('\nWord:', string)
-   return '_' in current_word
+   return ('_' in current_word), correct_letter
 
 def generate_scene(correct_word, current_word, letter, errors = 0):
    # Clean the window
@@ -208,7 +210,9 @@ def generate_scene(correct_word, current_word, letter, errors = 0):
    # Hagman Structure for each game defeat
    hangman_structure(errors)
    # Check word and return if is complete or not
-   return check_word(correct_word, current_word, letter)
+   check_bool, correct_letter = check_word(correct_word, current_word, letter)
+   return check_bool, correct_letter
+   # return check_word(correct_word, current_word, letter)
 
 def run():
    my_list_words = list_words()
@@ -228,13 +232,18 @@ def run():
          letter = str(input('\nType a letter: '))
          assert letter in alphabet and len(letter) == 1, 'You need to enter one letter'
          # incomplete = check_word(correct_word, current_word, letter)
-         incomplete = generate_scene(correct_word, current_word, letter, errors)
+         incomplete, correct_letter = generate_scene(correct_word, current_word, letter, errors)
          if(incomplete):
             if(errors == 11):
                print('\nYou lost the game... The correct word was:', correct_word)
                break
             else:
-               errors += 1
+               if(correct_letter == False):
+                  errors += 1
+                  generate_scene(correct_word, current_word, letter, errors)
+                  if(errors == 11):
+                     print('\nYou lost the game... The correct word was:', correct_word)
+                     break
          else:
             print('\nYou win, you are a great player!')
       except ValueError as ve:
