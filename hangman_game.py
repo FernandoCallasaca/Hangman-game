@@ -226,7 +226,7 @@ def run():
       try:
          # we need a letter
          letter = str(input('\nType a letter: '))
-         assert letter in alphabet and len(letter)==1, 'You need to enter one letter'
+         assert letter in alphabet and len(letter) == 1, 'You need to enter one letter'
          # incomplete = check_word(correct_word, current_word, letter)
          incomplete = generate_scene(correct_word, current_word, letter, errors)
          if(incomplete):
