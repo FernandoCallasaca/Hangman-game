@@ -1,5 +1,5 @@
 import os
-import time
+import string
 import random
 
 def game_name():
@@ -219,18 +219,26 @@ def run():
    alive = True
    incomplete = True
    errors = 0
+
+   alphabet = list(string.ascii_lowercase + 'ñ' + string.digits)
    
    while (alive == True and incomplete):
-      # we need a letter
-      letter = str(input('\nType a letter: '))
-      # incomplete = check_word(correct_word, current_word, letter)
-      incomplete = generate_scene(correct_word, current_word, letter, errors)
-      if(incomplete):
-         if(errors == 11):
-            print('\nYou lost the game... The correct word was:', correct_word)
-            break
+      try:
+         # we need a letter
+         letter = str(input('\nType a letter: '))
+         assert letter in alphabet and len(letter)==1, 'You need to enter one letter'
+         # incomplete = check_word(correct_word, current_word, letter)
+         incomplete = generate_scene(correct_word, current_word, letter, errors)
+         if(incomplete):
+            if(errors == 11):
+               print('\nYou lost the game... The correct word was:', correct_word)
+               break
+            else:
+               errors += 1
          else:
-            errors += 1
+            print('\nYou win, you are a great player!')
+      except ValueError as ve:
+         print('ve')
 
 if __name__ == '__main__':
    run()
