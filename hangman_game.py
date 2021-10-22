@@ -132,19 +132,54 @@ def hagman_structure():
       (8, 27, '~'),
    )
 
-   scene_descriptors = []
+   seventh_line = (
+      (9, 27, '|'),
+      (10, 27, '|'),
+      (11, 27, '|'),
+      (12, 27, '|'),
+      (13, 27, '|'),
+      (14, 27, '|'),
+      (15, 27, '|'),
+   )
 
-   scene_descriptors += first_line
-   scene_descriptors += second_line
-   scene_descriptors += third_line
-   scene_descriptors += four_line
-   scene_descriptors += fifth_line
-   scene_descriptors += sixth_line
+   eight_line = (
+      (11, 28, '/'),
+      (10, 29, '/'),
+   )
+
+   nineth_line = (
+      (11, 26, '\\'),
+      (10, 25, '\\'),
+   )
+
+   tenth_line = (
+      (16, 28, '\\'),
+      (17, 29, '\\'),
+   )
+
+   eleventh_line = (
+      (16, 26, '/'),
+      (17, 25, '/'),
+   )
+
+   part_scene = []
+
+   part_scene += first_line
+   part_scene += second_line
+   part_scene += third_line
+   part_scene += four_line
+   part_scene += fifth_line
+   part_scene += sixth_line
+   part_scene += seventh_line
+   part_scene += eight_line
+   part_scene += nineth_line
+   part_scene += tenth_line
+   part_scene += eleventh_line
 
    lines = [list(line) for line in hangman.splitlines()]
 
-   for descriptor in scene_descriptors:
-      lines[descriptor[0]][descriptor[1]] = descriptor[2]
+   for part_man in part_scene:
+      lines[part_man[0]][part_man[1]] = part_man[2]
 
    scene = '\n'.join([''.join(l) for l in lines])
    print(scene)
